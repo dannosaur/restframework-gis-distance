@@ -6,7 +6,21 @@ import sys
 import re
 import pip
 from setuptools import setup, find_packages
-from pip.req import parse_requirements
+
+
+    # pip >=20
+try:
+    from pip._internal.network.session import PipSession
+    from pip._internal.req import parse_requirements
+except ImportError:
+    try:
+        # 10.0.0 <= pip <= 19.3.1
+        from pip._internal.download import PipSession
+        from pip._internal.req import parse_requirements
+    except ImportError:
+        # pip <= 9.0.3
+        from pip.download import PipSession
+        from pip.req import parse_requirements
 
 
 if sys.argv[-1] == "publish":
@@ -18,13 +32,11 @@ with open('README.md') as f:
     readme = f.read()
 
 # Handle requirements
-requires = parse_requirements("requirements/install.txt",
-                              session=pip.download.PipSession())
-install_requires = [str(ir.req) for ir in requires]
+requires = parse_requirements("requirements/install.txt", session=PipSession())
+install_requires = [str(ir.requirement) for ir in requires]
 
-requires = parse_requirements("requirements/tests.txt",
-                              session=pip.download.PipSession())
-tests_require = [str(ir.req) for ir in requires]
+requires = parse_requirements("requirements/tests.txt", session=PipSession())
+tests_require = [str(ir.requirement) for ir in requires]
 
 # Convert markdown to rst
 try:
