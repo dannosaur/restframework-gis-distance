@@ -8,8 +8,8 @@ Add additional distance/sorting to django_rest_framework_gis
 """
 
 __title__ = "rest_framework_gis_distance"
-__version__ = "1.0.1"
-__build__ = 101
+__version__ = "1.0.2"
+__build__ = 102
 __author__ = "Martin Sandström"
 __license__ = "MIT"
 __copyright__ = "Copyright 2015 Fröjd Interactive"
