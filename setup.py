@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
 import re
-import pip
+import sys
+
 from setuptools import setup, find_packages
 
-
-    # pip >=20
+# pip >=20
 try:
     from pip._internal.network.session import PipSession
     from pip._internal.req import parse_requirements
